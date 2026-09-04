@@ -1,0 +1,236 @@
+{
+    "status": "PASSED",
+    "total_records": 1200,
+    "missing_values_sum": 0,
+    "infinite_values_sum": 0,
+    "label_distribution": {
+        "0": 1020,
+        "1": 60,
+        "4": 60,
+        "3": 60
+    },
+    "binary_distribution": {
+        "0": 1020,
+        "1": 180
+    },
+    "feature_ranges": {
+        "t": {
+            "min": 100.14758654952422,
+            "max": 136.96859817978398,
+            "mean": 117.1544019774997
+        },
+        "sender": {
+            "min": 1001.0,
+            "max": 1020.0,
+            "mean": 1010.5
+        },
+        "messageID": {
+            "min": 1001000.0,
+            "max": 1020059.0,
+            "mean": 1010529.5
+        },
+        "attackerType": {
+            "min": 0.0,
+            "max": 16.0,
+            "mean": 1.2
+        },
+        "position_x": {
+            "min": 1903.070863894788,
+            "max": 9999.9,
+            "mean": 3892.306893187698
+        },
+        "position_y": {
+            "min": 1567.8919545177646,
+            "max": 9999.9,
+            "mean": 3801.419560665959
+        },
+        "position_z": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "speed_x": {
+            "min": -17.376302103923766,
+            "max": 150.0,
+            "mean": 7.697770639956882
+        },
+        "speed_y": {
+            "min": -23.93157344232101,
+            "max": 150.0,
+            "mean": 10.585157505941547
+        },
+        "speed_z": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "speed": {
+            "min": 10.497930113201384,
+            "max": 212.13203435596427,
+            "mean": 26.566976078932584
+        },
+        "heading": {
+            "min": 30.44527729323802,
+            "max": 356.05901890882984,
+            "mean": 170.2119378879185
+        },
+        "direction": {
+            "min": 30.44527729323802,
+            "max": 356.05901890882984,
+            "mean": 170.2119378879185
+        },
+        "lane_position": {
+            "min": 1.0,
+            "max": 3.0,
+            "mean": 1.9333333333333333
+        },
+        "message_interval": {
+            "min": 0.10063380891550366,
+            "max": 0.9998212522653063,
+            "mean": 0.558456937551066
+        },
+        "distance_difference": {
+            "min": 0.0,
+            "max": 1100.7255917118334,
+            "mean": 36.00234623009618
+        },
+        "acceleration": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "speed_change_rate": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "position_change_rate": {
+            "min": 0.0,
+            "max": 5531.705270173762,
+            "mean": 81.39997550778219
+        },
+        "message_frequency": {
+            "min": 1.0001787796911585,
+            "max": 5.0,
+            "mean": 2.2900821282049257
+        },
+        "communication_rate": {
+            "min": 1.0001787796911585,
+            "max": 5.0,
+            "mean": 2.2900821282049257
+        },
+        "packet_count": {
+            "min": 1.0,
+            "max": 60.0,
+            "mean": 30.5
+        },
+        "neighbor_count": {
+            "min": 3.0,
+            "max": 18.0,
+            "mean": 17.594166666666666
+        },
+        "position_anomaly_score": {
+            "min": 0.0,
+            "max": 1100.0,
+            "mean": 55.0
+        },
+        "GPS_consistency": {
+            "min": 0.05,
+            "max": 5500.0,
+            "mean": 278.6477346230096
+        },
+        "speed_anomaly_score": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "trajectory_deviation": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "acceleration_anomaly": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "message_consistency": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "message_frequency_anomaly": {
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+        },
+        "trajectory_consistency": {
+            "min": 1.0,
+            "max": 1.0,
+            "mean": 1.0
+        },
+        "communication_behavior_score": {
+            "min": 3.2,
+            "max": 77.0,
+            "mean": 38.890082128204924
+        },
+        "vehicle_id": {
+            "min": 1001.0,
+            "max": 1020.0,
+            "mean": 1010.5
+        },
+        "timestamp": {
+            "min": 100.14758654952422,
+            "max": 136.96859817978398,
+            "mean": 117.1544019774997
+        },
+        "attack_label": {
+            "min": 0.0,
+            "max": 4.0,
+            "mean": 0.4
+        },
+        "is_malicious": {
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.15
+        }
+    },
+    "missing_per_column": {
+        "t": 0,
+        "sender": 0,
+        "messageID": 0,
+        "attackerType": 0,
+        "position_x": 0,
+        "position_y": 0,
+        "position_z": 0,
+        "speed_x": 0,
+        "speed_y": 0,
+        "speed_z": 0,
+        "speed": 0,
+        "heading": 0,
+        "direction": 0,
+        "lane_position": 0,
+        "message_interval": 0,
+        "distance_difference": 0,
+        "acceleration": 0,
+        "speed_change_rate": 0,
+        "position_change_rate": 0,
+        "message_frequency": 0,
+        "communication_rate": 0,
+        "packet_count": 0,
+        "neighbor_count": 0,
+        "position_anomaly_score": 0,
+        "GPS_consistency": 0,
+        "speed_anomaly_score": 0,
+        "trajectory_deviation": 0,
+        "acceleration_anomaly": 0,
+        "message_consistency": 0,
+        "message_frequency_anomaly": 0,
+        "trajectory_consistency": 0,
+        "communication_behavior_score": 0,
+        "vehicle_id": 0,
+        "timestamp": 0,
+        "attack_label": 0,
+        "is_malicious": 0
+    }
+}

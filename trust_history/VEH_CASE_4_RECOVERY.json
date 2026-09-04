@@ -1,0 +1,62 @@
+{
+    "vehicle_id": "VEH_CASE_4_RECOVERY",
+    "prediction_history": [
+        1,
+        0,
+        0,
+        0,
+        0
+    ],
+    "attack_history": [
+        "DoS",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "trust_history": [
+        47.0,
+        84.7,
+        96.01,
+        99.4,
+        100.0
+    ],
+    "message_history": [
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 1.0,
+            "communication_behavior_score": 6.0
+        },
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        },
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        },
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        },
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        }
+    ],
+    "normal_run_duration": 4
+}

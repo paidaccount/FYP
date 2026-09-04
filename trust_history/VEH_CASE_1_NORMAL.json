@@ -1,0 +1,62 @@
+{
+    "vehicle_id": "VEH_CASE_1_NORMAL",
+    "prediction_history": [
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "attack_history": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "trust_history": [
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0
+    ],
+    "message_history": [
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        },
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        },
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        },
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        },
+        {
+            "speed_anomaly_score": 0.0,
+            "position_anomaly_score": 0.0,
+            "GPS_consistency": 0.0,
+            "message_frequency_anomaly": 0.0,
+            "communication_behavior_score": 0.0
+        }
+    ],
+    "normal_run_duration": 5
+}

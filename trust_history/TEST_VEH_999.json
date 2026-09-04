@@ -1,0 +1,30 @@
+{
+    "vehicle_id": "TEST_VEH_999",
+    "prediction_history": [
+        1,
+        1,
+        1
+    ],
+    "attack_history": [
+        "speed_anomaly",
+        "speed_anomaly",
+        "speed_anomaly"
+    ],
+    "trust_history": [
+        57.5,
+        40.25,
+        36.5
+    ],
+    "message_history": [
+        {
+            "speed_anomaly_score": 4.5
+        },
+        {
+            "speed_anomaly_score": 4.5
+        },
+        {
+            "speed_anomaly_score": 4.5
+        }
+    ],
+    "normal_run_duration": 0
+}

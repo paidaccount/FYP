@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "vanet-backend"
+version = "1.0.0"
+description = "Explainable AI-Based Misbehavior Detection and Trust Management System for VANET"
+authors = ["Senior Software Architect <architect@example.com>"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.110.0"
+uvicorn = {extras = ["standard"], version = "^0.28.0"}
+pydantic = "^2.6.0"
+pydantic-settings = "^2.2.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.28"}
+asyncpg = "^0.29.0"
+alembic = "^1.13.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+redis = "^5.0.3"
+python-multipart = "^0.0.9"
+shapely = "^2.0.3"
+geojson = "^3.1.0"
+pandas = "^2.2.1"
+numpy = "^1.26.4"
+xgboost = "^2.0.3"
+shap = "^0.45.0"
+lime = "^0.2.0"
+joblib = "^1.3.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+pytest-asyncio = "^0.23.5"
+httpx = "^0.27.0"
+black = "^24.2.0"
+isort = "^5.13.2"
+flake8 = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

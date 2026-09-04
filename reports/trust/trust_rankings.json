@@ -1,0 +1,26 @@
+[
+    {
+        "vehicle_id": "VEH_CASE_1_NORMAL",
+        "trust_score": 100.0,
+        "trust_status": "Trusted Vehicle",
+        "attack_count": 0
+    },
+    {
+        "vehicle_id": "VEH_CASE_2_SINGLE_ATTACK",
+        "trust_score": 100.0,
+        "trust_status": "Trusted Vehicle",
+        "attack_count": 1
+    },
+    {
+        "vehicle_id": "VEH_CASE_4_RECOVERY",
+        "trust_score": 100.0,
+        "trust_status": "Trusted Vehicle",
+        "attack_count": 1
+    },
+    {
+        "vehicle_id": "VEH_CASE_3_REPEATED_ATTACK",
+        "trust_score": 94.89,
+        "trust_status": "Trusted Vehicle",
+        "attack_count": 3
+    }
+]

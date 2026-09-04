@@ -1,0 +1,12 @@
+# Centralized in-memory database store
+VEHICLES = {}
+EMERGENCY_VEHICLES = {}
+TRUST_SCORES = {}
+MESSAGES = []
+PREDICTIONS = {}
+EXPLANATIONS = {}
+ALERTS = []
+ACCIDENTS = {}
+ROUTES = []
+DEVICE_TOKENS = []
+NOTIFICATION_HISTORY = []
