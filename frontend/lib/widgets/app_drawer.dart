@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vanet_mobile/core/theme/theme.dart';
-import 'package:vanet_mobile/features/authentication/presentation/auth_provider.dart';
+import 'package:vanet_mobile/features/shared/authentication/presentation/auth_provider.dart';
 
 class AppDrawer extends ConsumerWidget {
   const AppDrawer({super.key});
@@ -177,6 +177,27 @@ class AppDrawer extends ConsumerWidget {
                     onTap: () {
                       Navigator.pop(context);
                       context.push('/profile');
+                    },
+                  ),
+                  const Divider(height: 20),
+                  // 🔹 FYP Demo Role Switcher
+                  ListTile(
+                    dense: true,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    leading: const Icon(Icons.directions_car_rounded, color: Color(0xFF2563EB), size: 20),
+                    title: Text(
+                      'Switch to Driver OBU App',
+                      style: GoogleFonts.outfit(
+                        color: const Color(0xFF2563EB),
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text('Demo switch to Personal Safety Cockpit', style: GoogleFonts.outfit(fontSize: 10.5, color: AppTheme.textSecondary)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      ref.read(authProvider.notifier).login('driver@vanet.com', 'driver123', role: 'Driver');
+                      context.go('/driver/dashboard');
                     },
                   ),
                 ],

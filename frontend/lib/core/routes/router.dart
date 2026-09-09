@@ -2,37 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:vanet_mobile/features/splash/presentation/splash_screen.dart';
-import 'package:vanet_mobile/features/onboarding/presentation/onboarding_screen.dart';
-import 'package:vanet_mobile/features/authentication/presentation/login_screen.dart';
-import 'package:vanet_mobile/features/authentication/presentation/auth_provider.dart';
-import 'package:vanet_mobile/features/dashboard/presentation/dashboard_screen.dart';
-import 'package:vanet_mobile/features/dashboard/presentation/navigation_shell.dart';
-import 'package:vanet_mobile/features/vehicles/presentation/vehicles_screen.dart';
-import 'package:vanet_mobile/features/vehicles/presentation/vehicle_details_screen.dart';
-import 'package:vanet_mobile/features/vehicles/presentation/ai_detection_screen.dart';
-import 'package:vanet_mobile/features/vehicles/presentation/ai_explanation_screen.dart';
-import 'package:vanet_mobile/features/trust/presentation/trust_management_screen.dart';
-import 'package:vanet_mobile/features/trust/presentation/trust_history_screen.dart';
-import 'package:vanet_mobile/features/emergency/presentation/emergency_vehicles_screen.dart';
-import 'package:vanet_mobile/features/emergency/presentation/fake_emergency_screen.dart';
-import 'package:vanet_mobile/features/emergency/presentation/route_recommendation_screen.dart';
-import 'package:vanet_mobile/features/alerts/presentation/alerts_screen.dart';
-import 'package:vanet_mobile/features/alerts/presentation/accident_alert_screen.dart';
-import 'package:vanet_mobile/features/reports/presentation/security_reports_screen.dart';
-import 'package:vanet_mobile/features/settings/presentation/settings_screen.dart';
-import 'package:vanet_mobile/features/profile/presentation/profile_screen.dart';
-import 'package:vanet_mobile/features/profile/presentation/edit_profile_screen.dart';
+import 'package:vanet_mobile/features/shared/splash/presentation/splash_screen.dart';
+import 'package:vanet_mobile/features/shared/onboarding/presentation/onboarding_screen.dart';
+import 'package:vanet_mobile/features/shared/authentication/presentation/login_screen.dart';
+import 'package:vanet_mobile/features/shared/authentication/presentation/auth_provider.dart';
+
+// 🛡️ Admin Shell & Screens
+import 'package:vanet_mobile/features/admin/dashboard/presentation/dashboard_screen.dart';
+import 'package:vanet_mobile/features/admin/dashboard/presentation/navigation_shell.dart';
+import 'package:vanet_mobile/features/admin/vehicles/presentation/vehicles_screen.dart';
+import 'package:vanet_mobile/features/admin/vehicles/presentation/vehicle_details_screen.dart';
+import 'package:vanet_mobile/features/admin/vehicles/presentation/ai_detection_screen.dart';
+import 'package:vanet_mobile/features/admin/vehicles/presentation/ai_explanation_screen.dart';
+import 'package:vanet_mobile/features/admin/trust/presentation/trust_management_screen.dart';
+import 'package:vanet_mobile/features/admin/trust/presentation/trust_history_screen.dart';
+import 'package:vanet_mobile/features/admin/emergency/presentation/emergency_vehicles_screen.dart';
+import 'package:vanet_mobile/features/admin/emergency/presentation/fake_emergency_screen.dart';
+import 'package:vanet_mobile/features/admin/emergency/presentation/route_recommendation_screen.dart';
+import 'package:vanet_mobile/features/admin/alerts/presentation/alerts_screen.dart';
+import 'package:vanet_mobile/features/admin/alerts/presentation/accident_alert_screen.dart';
+import 'package:vanet_mobile/features/admin/reports/presentation/security_reports_screen.dart';
+import 'package:vanet_mobile/features/shared/settings/presentation/settings_screen.dart';
+import 'package:vanet_mobile/features/shared/profile/presentation/profile_screen.dart';
+import 'package:vanet_mobile/features/shared/profile/presentation/edit_profile_screen.dart';
+
+// 🚗 Driver / User Shell & Screens
+import 'package:vanet_mobile/features/driver/presentation/driver_navigation_shell.dart';
+import 'package:vanet_mobile/features/driver/presentation/driver_dashboard_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/nearby_vehicles_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/driver_alerts_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/driver_map_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/my_vehicle_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/driver_xai_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/driver_emergency_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/driver_hazards_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/driver_safe_route_screen.dart';
+import 'package:vanet_mobile/features/driver/presentation/driver_history_screen.dart';
 
 import 'package:vanet_mobile/models/vehicle_model.dart';
 import 'package:vanet_mobile/models/route_model.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
+// Admin Shell Keys
 final _sectionDashboardKey = GlobalKey<NavigatorState>();
 final _sectionVehiclesKey = GlobalKey<NavigatorState>();
 final _sectionAlertsKey = GlobalKey<NavigatorState>();
 final _sectionEmergencyKey = GlobalKey<NavigatorState>();
 final _sectionReportsKey = GlobalKey<NavigatorState>();
+
+// Driver Shell Keys
+final _driverDashboardKey = GlobalKey<NavigatorState>();
+final _driverRadarKey = GlobalKey<NavigatorState>();
+final _driverAlertsKey = GlobalKey<NavigatorState>();
+final _driverMapKey = GlobalKey<NavigatorState>();
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
@@ -42,14 +65,33 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: '/splash',
     redirect: (context, state) {
       final loc = state.matchedLocation;
-      final isPublicRoute = loc == '/splash' || loc == '/onboarding' || loc == '/login';
 
+      // 1. Initial Cold Start: Allow /splash strictly while not completed
+      if (!authState.hasCompletedSplash) {
+        return loc == '/splash' ? null : '/splash';
+      }
+
+      // 2. Once splash completed: NEVER go back to /splash
+      if (loc == '/splash') {
+        if (!authState.isAuthenticated) {
+          return authState.hasSeenOnboarding ? '/login' : '/onboarding';
+        }
+        return authState.isAdmin ? '/dashboard' : '/driver/dashboard';
+      }
+
+      // 3. If unauthenticated
       if (!authState.isAuthenticated) {
-        return isPublicRoute ? null : '/login';
+        if (loc == '/login' || loc == '/onboarding') {
+          return null;
+        }
+        return authState.hasSeenOnboarding ? '/login' : '/onboarding';
       }
-      if (isPublicRoute) {
-        return '/dashboard';
+
+      // 4. If authenticated and accessing auth/public routes
+      if (loc == '/login' || loc == '/onboarding') {
+        return authState.isAdmin ? '/dashboard' : '/driver/dashboard';
       }
+
       return null;
     },
     routes: [
@@ -65,12 +107,15 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/login',
         builder: (context, state) => const LoginScreen(),
       ),
+
+      // ==========================================
+      // 🛡️ 1. ADMIN APP NAVIGATION SHELL
+      // ==========================================
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return NavigationShell(navigationShell: navigationShell);
         },
         branches: [
-          // 1. Dashboard Branch
           StatefulShellBranch(
             navigatorKey: _sectionDashboardKey,
             routes: [
@@ -80,7 +125,6 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // 2. Vehicles Branch
           StatefulShellBranch(
             navigatorKey: _sectionVehiclesKey,
             routes: [
@@ -90,7 +134,6 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // 3. Alerts Branch
           StatefulShellBranch(
             navigatorKey: _sectionAlertsKey,
             routes: [
@@ -100,7 +143,6 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // 4. Emergency Branch
           StatefulShellBranch(
             navigatorKey: _sectionEmergencyKey,
             routes: [
@@ -110,7 +152,6 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // 5. Reports Branch
           StatefulShellBranch(
             navigatorKey: _sectionReportsKey,
             routes: [
@@ -122,7 +163,94 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
-      // 🔹 Secondary Administrative & Detail Routes (Accessible via Drawer & Deep Links)
+
+      // ==========================================
+      // 🚗 2. DRIVER / USER APP NAVIGATION SHELL
+      // ==========================================
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return DriverNavigationShell(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _driverDashboardKey,
+            routes: [
+              GoRoute(
+                path: '/driver/dashboard',
+                builder: (context, state) => const DriverDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _driverRadarKey,
+            routes: [
+              GoRoute(
+                path: '/driver/nearby',
+                builder: (context, state) => const NearbyVehiclesScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _driverAlertsKey,
+            routes: [
+              GoRoute(
+                path: '/driver/alerts',
+                builder: (context, state) => const DriverAlertsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _driverMapKey,
+            routes: [
+              GoRoute(
+                path: '/driver/map',
+                builder: (context, state) => const DriverMapScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ==========================================
+      // 🚗 DRIVER SECONDARY & DETAIL ROUTES
+      // ==========================================
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/driver/my-vehicle',
+        builder: (context, state) => const MyVehicleScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/driver/xai/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id'] ?? 'V1023';
+          return DriverXAIScreen(vehicleId: id);
+        },
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/driver/emergency',
+        builder: (context, state) => const DriverEmergencyScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/driver/hazards',
+        builder: (context, state) => const DriverHazardsScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/driver/safe-route',
+        builder: (context, state) => const DriverSafeRouteScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/driver/history',
+        builder: (context, state) => const DriverHistoryScreen(),
+      ),
+
+      // ==========================================
+      // 🛡️ ADMIN SECONDARY & DETAIL ROUTES
+      // ==========================================
       GoRoute(
         parentNavigatorKey: _rootNavigatorKey,
         path: '/profile',
