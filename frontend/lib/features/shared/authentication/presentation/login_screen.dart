@@ -116,16 +116,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   const SizedBox(height: 24),
 
-                  // 🔹 Role Selector Pills (Preserved feature)
+                  // 🔹 Role Selector Pills
                   if (_currentMode != AuthViewMode.forgotPassword) ...[
                     Row(
                       children: [
                         Expanded(
-                          child: _buildRoleSelector("Admin", Icons.shield_rounded),
+                          child: _buildRoleSelector("Admin", Icons.shield_rounded, label: "Admin"),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
-                          child: _buildRoleSelector("User", Icons.person_rounded),
+                          child: _buildRoleSelector("Driver", Icons.directions_car_rounded, label: "Driver / OBU"),
                         ),
                       ],
                     ),
@@ -359,8 +359,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Widget _buildRoleSelector(String role, IconData icon) {
+  Widget _buildRoleSelector(String role, IconData icon, {String? label}) {
     final isSelected = _selectedRole == role;
+    final displayLabel = label ?? role;
 
     return InkWell(
       onTap: () {
@@ -377,16 +378,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           }
         });
       },
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(10),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 11),
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.primary.withValues(alpha: 0.1) : const Color(0xFFF9FAFB),
-          borderRadius: BorderRadius.circular(8),
+          color: isSelected ? AppTheme.primaryLight : AppTheme.secondarySurface,
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: isSelected ? AppTheme.primary : AppTheme.border,
-            width: isSelected ? 1.5 : 1.0,
+            width: isSelected ? 1.6 : 1.0,
           ),
         ),
         child: Row(
@@ -399,7 +400,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             const SizedBox(width: 8),
             Text(
-              role,
+              displayLabel,
               style: GoogleFonts.outfit(
                 color: isSelected ? AppTheme.primary : AppTheme.textSecondary,
                 fontWeight: FontWeight.bold,

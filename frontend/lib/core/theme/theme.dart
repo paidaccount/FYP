@@ -13,13 +13,19 @@ class AppTheme {
   static const Color cardSurface = AppColors.cardSurface;
   static const Color secondarySurface = AppColors.secondarySurface;
   static const Color primary = AppColors.primary;
+  static const Color primaryLight = AppColors.primaryLight;
   static const Color secondary = AppColors.secondary;
   static const Color accent = AppColors.accent;
+  static const Color aiHighlight = AppColors.aiHighlight;
   static const Color safe = AppColors.safe;
+  static const Color safeLight = AppColors.safeLight;
   static const Color warning = AppColors.warning;
+  static const Color warningLight = AppColors.warningLight;
   static const Color error = AppColors.error;
+  static const Color errorLight = AppColors.errorLight;
   static const Color textPrimary = AppColors.textPrimary;
   static const Color textSecondary = AppColors.textSecondary;
+  static const Color textTertiary = AppColors.textTertiary;
   static const Color border = AppColors.border;
   static const Color borderStrong = AppColors.borderStrong;
 
@@ -32,35 +38,35 @@ class AppTheme {
 
   static const EdgeInsets screenPadding = EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0);
 
-  // 🔹 Solid Orange Card Decoration (Solid #E65F2B with crisp white typography)
+  // 🔹 Solid Signature Brand Card Decoration
   static BoxDecoration solidOrangeCardDecoration({
-    double radius = 12.0,
+    double radius = 14.0,
     bool hasShadow = true,
   }) {
     return BoxDecoration(
-      color: primary,
-      borderRadius: BorderRadius.circular(radius),
-      border: Border.all(
-        color: const Color(0xFFD34F1D),
-        width: 1.0,
+      gradient: const LinearGradient(
+        colors: [Color(0xFFEA580C), Color(0xFFC2410C)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
+      borderRadius: BorderRadius.circular(radius),
       boxShadow: hasShadow
           ? [
-              const BoxShadow(
-                color: Color.fromRGBO(230, 95, 43, 0.22),
-                blurRadius: 10,
-                offset: Offset(0, 4),
+              BoxShadow(
+                color: const Color(0xFFEA580C).withValues(alpha: 0.28),
+                blurRadius: 14,
+                offset: const Offset(0, 6),
               ),
             ]
           : null,
     );
   }
 
-  // 🔹 Corporate Control Center Card Decoration
+  // 🔹 High-Tech Control Surface Card Decoration
   static BoxDecoration controlCardDecoration({
     Color? borderColor,
     Color? surfaceColor,
-    double radius = 12.0,
+    double radius = 14.0,
     bool hasShadow = true,
   }) {
     return BoxDecoration(
@@ -72,21 +78,21 @@ class AppTheme {
       ),
       boxShadow: hasShadow
           ? [
-              const BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.04),
-                blurRadius: 6,
-                offset: Offset(0, 2),
+              BoxShadow(
+                color: const Color(0xFF0F172A).withValues(alpha: 0.04),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
               ),
             ]
           : null,
     );
   }
 
-  // Backward compatibility alias for existing references
+  // Backward compatibility alias
   static BoxDecoration cyberCardDecoration({
     Color? borderColor,
     Color? surfaceColor,
-    double radius = 12.0,
+    double radius = 14.0,
     bool hasGlow = false,
   }) {
     return controlCardDecoration(
@@ -98,6 +104,8 @@ class AppTheme {
 
   // 🔹 Light Theme Configuration
   static ThemeData get lightTheme {
+    final baseTextTheme = GoogleFonts.outfitTextTheme();
+
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
@@ -115,31 +123,31 @@ class AppTheme {
         onSurface: textPrimary,
         onError: Colors.white,
       ),
-      textTheme: GoogleFonts.outfitTextTheme().copyWith(
-        displayLarge: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.bold),
-        displayMedium: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.bold),
+      textTheme: baseTextTheme.copyWith(
+        displayLarge: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w900, letterSpacing: -0.5),
+        displayMedium: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w800, letterSpacing: -0.5),
         displaySmall: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.bold),
         headlineLarge: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.bold),
         headlineMedium: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.bold),
-        headlineSmall: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w600),
-        titleLarge: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w600),
-        titleMedium: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w600),
-        titleSmall: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w500),
-        bodyLarge: GoogleFonts.outfit(color: textPrimary),
-        bodyMedium: GoogleFonts.outfit(color: textPrimary),
-        bodySmall: GoogleFonts.outfit(color: textSecondary),
+        headlineSmall: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w700),
+        titleLarge: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.bold, fontSize: 18),
+        titleMedium: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w700, fontSize: 15),
+        titleSmall: GoogleFonts.outfit(color: textPrimary, fontWeight: FontWeight.w600, fontSize: 13.5),
+        bodyLarge: GoogleFonts.outfit(color: textPrimary, fontSize: 14),
+        bodyMedium: GoogleFonts.outfit(color: textPrimary, fontSize: 13),
+        bodySmall: GoogleFonts.outfit(color: textSecondary, fontSize: 11.5),
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: surface,
         elevation: 0,
-        scrolledUnderElevation: 0,
+        scrolledUnderElevation: 0.5,
         centerTitle: false,
-        iconTheme: const IconThemeData(color: textPrimary),
+        iconTheme: const IconThemeData(color: textPrimary, size: 22),
         titleTextStyle: GoogleFonts.outfit(
           color: textPrimary,
-          fontSize: 16,
+          fontSize: 16.5,
           fontWeight: FontWeight.bold,
-          letterSpacing: 0.5,
+          letterSpacing: 0.2,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -147,36 +155,38 @@ class AppTheme {
           backgroundColor: primary,
           foregroundColor: Colors.white,
           elevation: 0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          textStyle: GoogleFonts.outfit(fontWeight: FontWeight.bold, fontSize: 13),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          textStyle: GoogleFonts.outfit(fontWeight: FontWeight.bold, fontSize: 13.5),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: textPrimary,
-          side: const BorderSide(color: border, width: 1.0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          side: const BorderSide(color: border, width: 1.2),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           textStyle: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 13),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        fillColor: secondarySurface,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: border),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: border),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: primary, width: 1.5),
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: primary, width: 1.8),
         ),
         labelStyle: GoogleFonts.outfit(color: textSecondary, fontSize: 13),
-        hintStyle: GoogleFonts.outfit(color: textSecondary, fontSize: 13),
+        hintStyle: GoogleFonts.outfit(color: textTertiary, fontSize: 13.5),
       ),
     );
   }
