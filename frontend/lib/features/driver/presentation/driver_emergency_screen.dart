@@ -100,7 +100,7 @@ class DriverEmergencyScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppTheme.border),
               ),
@@ -158,7 +158,7 @@ class DriverEmergencyScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppTheme.border),
               ),

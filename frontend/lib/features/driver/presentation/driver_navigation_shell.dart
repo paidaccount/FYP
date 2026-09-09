@@ -6,6 +6,8 @@ import 'package:vanet_mobile/core/theme/theme.dart';
 import 'package:vanet_mobile/features/shared/authentication/presentation/auth_provider.dart';
 import 'package:vanet_mobile/features/driver/presentation/driver_provider.dart';
 
+import 'package:vanet_mobile/core/utils/responsive.dart';
+
 class DriverNavigationShell extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
 
@@ -17,84 +19,172 @@ class DriverNavigationShell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final driverState = ref.watch(driverProvider);
+    final isWide = MediaQuery.of(context).size.width >= 800;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppTheme.primary.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Row(
-                children: [
-                  const Icon(Icons.directions_car_rounded, size: 16, color: AppTheme.primary),
-                  const SizedBox(width: 4),
-                  Text(
-                    'DRIVER OBU',
-                    style: GoogleFonts.outfit(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      letterSpacing: 0.8,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              _getTitle(navigationShell.currentIndex),
-              style: GoogleFonts.outfit(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        actions: [
-          // Trust Badge on App Bar
+    final appBar = AppBar(
+      title: Row(
+        children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: AppTheme.safe.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppTheme.safe.withValues(alpha: 0.3)),
+              color: AppTheme.primary.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(6),
             ),
             child: Row(
               children: [
-                const Icon(Icons.verified_user_rounded, size: 14, color: AppTheme.safe),
+                const Icon(Icons.directions_car_rounded, size: 16, color: AppTheme.primary),
                 const SizedBox(width: 4),
                 Text(
-                  '${(driverState.trustScore * 100).toInt()}% Trust',
+                  'DRIVER OBU',
                   style: GoogleFonts.outfit(
-                    fontSize: 12,
+                    fontSize: 11,
                     fontWeight: FontWeight.bold,
-                    color: AppTheme.safe,
+                    color: AppTheme.primary,
+                    letterSpacing: 0.8,
                   ),
                 ),
               ],
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.alt_route_rounded, color: AppTheme.textPrimary),
-            tooltip: 'Safe Route Detours',
-            onPressed: () => context.push('/driver/safe-route'),
+          const SizedBox(width: 10),
+          Text(
+            _getTitle(navigationShell.currentIndex),
+            style: GoogleFonts.outfit(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ],
       ),
+      actions: [
+        // Trust Badge on App Bar
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: AppTheme.safe.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppTheme.safe.withValues(alpha: 0.3)),
+          ),
+          child: Row(
+            children: [
+              const Icon(Icons.verified_user_rounded, size: 14, color: AppTheme.safe),
+              const SizedBox(width: 4),
+              Text(
+                '${(driverState.trustScore * 100).toInt()}% Trust',
+                style: GoogleFonts.outfit(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.safe,
+                ),
+              ),
+            ],
+          ),
+        ),
+        IconButton(
+          icon: const Icon(Icons.alt_route_rounded, color: AppTheme.textPrimary),
+          tooltip: 'Safe Route Detours',
+          onPressed: () => context.push('/driver/safe-route'),
+        ),
+      ],
+    );
+
+    if (isWide) {
+      return Scaffold(
+        backgroundColor: AppTheme.background,
+        appBar: appBar,
+        drawer: _buildDriverDrawer(context, ref, driverState),
+        body: Row(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: AppTheme.surface,
+                border: Border(right: BorderSide(color: AppTheme.border, width: 1.0)),
+              ),
+              child: NavigationRail(
+                selectedIndex: navigationShell.currentIndex,
+                backgroundColor: AppTheme.surface,
+                minWidth: 72,
+                minExtendedWidth: 200,
+                elevation: 0,
+                indicatorColor: AppTheme.primary.withValues(alpha: 0.16),
+                labelType: NavigationRailLabelType.all,
+                selectedLabelTextStyle: GoogleFonts.outfit(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.primary,
+                ),
+                unselectedLabelTextStyle: GoogleFonts.outfit(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: AppTheme.textSecondary,
+                ),
+                onDestinationSelected: (index) {
+                  navigationShell.goBranch(
+                    index,
+                    initialLocation: index == navigationShell.currentIndex,
+                  );
+                },
+                leading: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppTheme.primary.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(Icons.directions_car_filled_rounded, color: AppTheme.primary, size: 24),
+                  ),
+                ),
+                destinations: const [
+                  NavigationRailDestination(
+                    icon: Icon(Icons.speed_outlined, color: AppTheme.textSecondary, size: 22),
+                    selectedIcon: Icon(Icons.speed_rounded, color: AppTheme.primary, size: 22),
+                    label: Text('HUD Cockpit'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.radar_outlined, color: AppTheme.textSecondary, size: 22),
+                    selectedIcon: Icon(Icons.radar_rounded, color: AppTheme.primary, size: 22),
+                    label: Text('Nearby V2V'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.warning_amber_outlined, color: AppTheme.textSecondary, size: 22),
+                    selectedIcon: Icon(Icons.warning_amber_rounded, color: AppTheme.warning, size: 22),
+                    label: Text('Alerts'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.map_outlined, color: AppTheme.textSecondary, size: 22),
+                    selectedIcon: Icon(Icons.map_rounded, color: AppTheme.primary, size: 22),
+                    label: Text('Live Map'),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: Responsive.maxContentWidth),
+                  child: navigationShell,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Scaffold(
+      backgroundColor: AppTheme.background,
+      appBar: appBar,
       drawer: _buildDriverDrawer(context, ref, driverState),
       body: navigationShell,
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
+        decoration: const BoxDecoration(
+          color: AppTheme.surface,
           border: Border(top: BorderSide(color: AppTheme.border, width: 1.0)),
         ),
         child: BottomNavigationBar(
           currentIndex: navigationShell.currentIndex,
           onTap: (index) => navigationShell.goBranch(index),
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
+          backgroundColor: AppTheme.surface,
           selectedItemColor: AppTheme.primary,
           unselectedItemColor: AppTheme.textSecondary,
           selectedLabelStyle: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.bold),
@@ -140,7 +230,7 @@ class DriverNavigationShell extends ConsumerWidget {
 
   Widget _buildDriverDrawer(BuildContext context, WidgetRef ref, DriverState state) {
     return Drawer(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.surface,
       child: SafeArea(
         child: Column(
           children: [
@@ -180,7 +270,7 @@ class DriverNavigationShell extends ConsumerWidget {
                           child: Text(
                             'OBU ONLINE',
                             style: GoogleFonts.outfit(
-                              color: Colors.white,
+                              color: AppTheme.surface,
                               fontSize: 9.5,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,

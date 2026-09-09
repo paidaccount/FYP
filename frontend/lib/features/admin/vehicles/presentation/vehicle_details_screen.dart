@@ -33,9 +33,9 @@ class VehicleDetailsScreen extends ConsumerWidget {
             : (vehicle.trustScore >= 40 ? AppTheme.warning : AppTheme.error));
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: AppTheme.secondarySurface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,

@@ -37,9 +37,9 @@ class _AIExplanationScreenState extends ConsumerState<AIExplanationScreen> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: AppTheme.secondarySurface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: IconButton(
@@ -97,7 +97,7 @@ class _AIExplanationScreenState extends ConsumerState<AIExplanationScreen> {
                 child: Text(
                   predictionLabel,
                   style: GoogleFonts.outfit(
-                    color: Colors.white,
+                    color: AppTheme.surface,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0.5,
@@ -137,7 +137,7 @@ class _AIExplanationScreenState extends ConsumerState<AIExplanationScreen> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppTheme.border),
                 boxShadow: const [
@@ -185,7 +185,7 @@ class _AIExplanationScreenState extends ConsumerState<AIExplanationScreen> {
                               borderRadius: BorderRadius.circular(4),
                               child: LinearProgressIndicator(
                                 value: val / 0.5,
-                                backgroundColor: const Color(0xFFF3F4F6),
+                                backgroundColor: AppTheme.secondarySurface,
                                 color: AppTheme.primary,
                                 minHeight: 8,
                               ),
@@ -218,7 +218,7 @@ class _AIExplanationScreenState extends ConsumerState<AIExplanationScreen> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppTheme.border),
                 boxShadow: const [
@@ -315,7 +315,7 @@ class _AIExplanationScreenState extends ConsumerState<AIExplanationScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppTheme.surface,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: AppTheme.border),
                 ),

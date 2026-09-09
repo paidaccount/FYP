@@ -10,9 +10,9 @@ class EmergencyVehiclesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: AppTheme.secondarySurface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
@@ -35,7 +35,7 @@ class EmergencyVehiclesScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppTheme.border),
                 boxShadow: const [
@@ -109,7 +109,7 @@ class EmergencyVehiclesScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppTheme.border),
               ),
@@ -163,7 +163,7 @@ class EmergencyVehiclesScreen extends ConsumerWidget {
                             ),
                           ],
                         ),
-                        child: const Icon(Icons.local_hospital_rounded, color: Colors.white, size: 14),
+                        child: const Icon(Icons.local_hospital_rounded, color: AppTheme.surface, size: 14),
                       ),
                     ),
                     // Destination pin
@@ -183,7 +183,7 @@ class EmergencyVehiclesScreen extends ConsumerWidget {
                             ),
                           ],
                         ),
-                        child: const Icon(Icons.flag_rounded, color: Colors.white, size: 14),
+                        child: const Icon(Icons.flag_rounded, color: AppTheme.surface, size: 14),
                       ),
                     ),
                   ],

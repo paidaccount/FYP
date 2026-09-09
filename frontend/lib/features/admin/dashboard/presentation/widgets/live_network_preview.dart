@@ -1,3 +1,4 @@
+import 'package:vanet_mobile/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
@@ -133,13 +134,13 @@ class LiveNetworkPreview extends StatelessWidget {
                 ),
               ],
             ),
-            child: Icon(icon, size: 12, color: Colors.white),
+            child: Icon(icon, size: 12, color: AppTheme.surface),
           ),
           const SizedBox(height: 2),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppTheme.surface,
               borderRadius: BorderRadius.circular(4),
               border: Border.all(color: AppColors.border, width: 0.6),
             ),

@@ -20,7 +20,7 @@ class DriverSafeRouteScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppTheme.border),
               ),
@@ -106,7 +106,7 @@ class DriverSafeRouteScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isRecommended ? Colors.white : const Color(0xFFF9FAFB),
+        color: isRecommended ? AppTheme.surface : AppTheme.secondarySurface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: isRecommended ? AppTheme.safe : AppTheme.border,
