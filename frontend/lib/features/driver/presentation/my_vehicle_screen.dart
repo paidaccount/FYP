@@ -24,7 +24,7 @@ class MyVehicleScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppTheme.border),
               ),
@@ -63,7 +63,7 @@ class MyVehicleScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppTheme.border),
               ),
@@ -89,7 +89,7 @@ class MyVehicleScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppTheme.border),
               ),

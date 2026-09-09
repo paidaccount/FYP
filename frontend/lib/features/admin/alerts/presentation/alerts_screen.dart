@@ -79,9 +79,9 @@ class AlertsScreen extends ConsumerWidget {
     }).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: AppTheme.secondarySurface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
@@ -115,7 +115,7 @@ class AlertsScreen extends ConsumerWidget {
         children: [
           // 🔹 Horizontal Filter Chips Row (Matching Mockup 4)
           Container(
-            color: Colors.white,
+            color: AppTheme.surface,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -163,7 +163,7 @@ class AlertsScreen extends ConsumerWidget {
         duration: const Duration(milliseconds: 150),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.primary : const Color(0xFFF3F4F6),
+          color: isSelected ? AppTheme.primary : AppTheme.secondarySurface,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -184,7 +184,7 @@ class AlertsScreen extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.border),
         boxShadow: const [

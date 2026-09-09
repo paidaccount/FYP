@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vanet_mobile/core/theme/theme.dart';
+import 'package:vanet_mobile/core/utils/responsive.dart';
 import 'package:vanet_mobile/features/driver/presentation/driver_provider.dart';
 
 class DriverDashboardScreen extends ConsumerWidget {
@@ -17,14 +18,16 @@ class DriverDashboardScreen extends ConsumerWidget {
       backgroundColor: AppTheme.background,
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // 🔹 1. In-Vehicle Cockpit Telemetry Card (Speed & OBU)
+        child: ResponsiveContainer(
+          padding: EdgeInsets.zero,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // 🔹 1. In-Vehicle Cockpit Telemetry Card (Speed & OBU)
             Container(
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppTheme.border, width: 1.2),
                 boxShadow: [
@@ -250,10 +253,10 @@ class DriverDashboardScreen extends ConsumerWidget {
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
+              crossAxisCount: Responsive.getGridColumnCount(context, mobile: 2, tablet: 3, desktop: 3),
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
-              childAspectRatio: 1.45,
+              childAspectRatio: Responsive.isMobile(context) ? 1.45 : 1.6,
               children: [
                 _buildActionCard(
                   context,
@@ -344,7 +347,7 @@ class DriverDashboardScreen extends ConsumerWidget {
                 return Container(
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppTheme.surface,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       color: isUntrusted ? AppTheme.error.withValues(alpha: 0.3) : AppTheme.border,
@@ -401,7 +404,7 @@ class DriverDashboardScreen extends ConsumerWidget {
                                     child: Text(
                                       'PRIORITY',
                                       style: GoogleFonts.outfit(
-                                        color: Colors.white,
+                                        color: AppTheme.surface,
                                         fontSize: 9,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -437,6 +440,7 @@ class DriverDashboardScreen extends ConsumerWidget {
             ),
           ],
         ),
+        ),
       ),
     );
   }
@@ -455,7 +459,7 @@ class DriverDashboardScreen extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppTheme.surface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppTheme.border),
         ),

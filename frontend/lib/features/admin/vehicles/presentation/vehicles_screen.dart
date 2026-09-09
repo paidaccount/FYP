@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vanet_mobile/core/theme/theme.dart';
 import 'package:vanet_mobile/features/admin/dashboard/presentation/dashboard_provider.dart';
 
+import 'package:vanet_mobile/core/utils/responsive.dart';
+
 final vehiclesSearchQueryProvider = StateProvider<String>((ref) => '');
 
 class VehiclesScreen extends ConsumerWidget {
@@ -48,9 +50,9 @@ class VehiclesScreen extends ConsumerWidget {
     }).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: AppTheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.surface,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
@@ -63,15 +65,18 @@ class VehiclesScreen extends ConsumerWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: Responsive.maxContentWidth),
+          child: Column(
+            children: [
           // 🔹 Search Box (Matching Mockup 5)
           Container(
-            color: Colors.white,
+            color: AppTheme.surface,
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFF3F4F6),
+                color: AppTheme.secondarySurface,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
@@ -93,7 +98,7 @@ class VehiclesScreen extends ConsumerWidget {
 
           // 🔹 Table Header (Matching Mockup 5)
           Container(
-            color: Colors.white,
+            color: AppTheme.surface,
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
             child: Row(
               children: [
@@ -159,7 +164,7 @@ class VehiclesScreen extends ConsumerWidget {
                     context.push('/vehicles/$id/explanation');
                   },
                   child: Container(
-                    color: Colors.white,
+                    color: AppTheme.surface,
                     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
                     child: Row(
                       children: [
@@ -222,6 +227,8 @@ class VehiclesScreen extends ConsumerWidget {
           ),
         ],
       ),
+    ),
+    ),
     );
   }
 }

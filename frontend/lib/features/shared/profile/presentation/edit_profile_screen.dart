@@ -59,7 +59,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
@@ -120,7 +120,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         child: const Icon(
                           Icons.camera_alt_rounded,
                           size: 16,
-                          color: Colors.white,
+                          color: AppTheme.surface,
                         ),
                       ),
                     ),

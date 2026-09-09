@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vanet_mobile/core/theme/colors.dart';
 
-final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
+final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.dark);
 
 class AppTheme {
   // 🔹 Centralized Semantic Tokens
@@ -53,8 +53,8 @@ class AppTheme {
       boxShadow: hasShadow
           ? [
               BoxShadow(
-                color: const Color(0xFFEA580C).withValues(alpha: 0.28),
-                blurRadius: 14,
+                color: const Color(0xFFEA580C).withValues(alpha: 0.35),
+                blurRadius: 16,
                 offset: const Offset(0, 6),
               ),
             ]
@@ -62,7 +62,7 @@ class AppTheme {
     );
   }
 
-  // 🔹 High-Tech Control Surface Card Decoration
+  // 🔹 Cyber-Dark Control Surface Card Decoration
   static BoxDecoration controlCardDecoration({
     Color? borderColor,
     Color? surfaceColor,
@@ -79,9 +79,9 @@ class AppTheme {
       boxShadow: hasShadow
           ? [
               BoxShadow(
-                color: const Color(0xFF0F172A).withValues(alpha: 0.04),
-                blurRadius: 10,
-                offset: const Offset(0, 3),
+                color: Colors.black.withValues(alpha: 0.25),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
               ),
             ]
           : null,
@@ -102,18 +102,18 @@ class AppTheme {
     );
   }
 
-  // 🔹 Light Theme Configuration
-  static ThemeData get lightTheme {
+  // 🔹 Dark Theme Configuration (Default)
+  static ThemeData get darkTheme {
     final baseTextTheme = GoogleFonts.outfitTextTheme();
 
     return ThemeData(
       useMaterial3: true,
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       primaryColor: primary,
       scaffoldBackgroundColor: background,
       cardColor: surface,
       canvasColor: background,
-      colorScheme: const ColorScheme.light(
+      colorScheme: const ColorScheme.dark(
         primary: primary,
         secondary: secondary,
         surface: surface,
@@ -140,7 +140,7 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: surface,
         elevation: 0,
-        scrolledUnderElevation: 0.5,
+        scrolledUnderElevation: 0,
         centerTitle: false,
         iconTheme: const IconThemeData(color: textPrimary, size: 22),
         titleTextStyle: GoogleFonts.outfit(
@@ -163,7 +163,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: textPrimary,
-          side: const BorderSide(color: border, width: 1.2),
+          side: const BorderSide(color: borderStrong, width: 1.2),
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           textStyle: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 13),
@@ -188,9 +188,14 @@ class AppTheme {
         labelStyle: GoogleFonts.outfit(color: textSecondary, fontSize: 13),
         hintStyle: GoogleFonts.outfit(color: textTertiary, fontSize: 13.5),
       ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: surface,
+        selectedItemColor: primary,
+        unselectedItemColor: textSecondary,
+      ),
     );
   }
 
-  // 🔹 Dark Theme Fallback
-  static ThemeData get darkTheme => lightTheme;
+  // 🔹 Light Theme Alias
+  static ThemeData get lightTheme => darkTheme;
 }

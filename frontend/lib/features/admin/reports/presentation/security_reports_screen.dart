@@ -35,9 +35,9 @@ class _SecurityReportsScreenState extends ConsumerState<SecurityReportsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: AppTheme.secondarySurface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
@@ -60,7 +60,7 @@ class _SecurityReportsScreenState extends ConsumerState<SecurityReportsScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: AppTheme.border),
               ),
@@ -113,7 +113,7 @@ class _SecurityReportsScreenState extends ConsumerState<SecurityReportsScreen> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppTheme.border),
                 boxShadow: const [
@@ -201,7 +201,7 @@ class _SecurityReportsScreenState extends ConsumerState<SecurityReportsScreen> {
                     ? const SizedBox(
                         width: 20,
                         height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        child: CircularProgressIndicator(strokeWidth: 2, color: AppTheme.surface),
                       )
                     : Text(
                         'Download Report',
@@ -224,7 +224,7 @@ class _SecurityReportsScreenState extends ConsumerState<SecurityReportsScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: AppTheme.border),
       ),

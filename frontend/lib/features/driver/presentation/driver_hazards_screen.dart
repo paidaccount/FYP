@@ -59,7 +59,7 @@ class DriverHazardsScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppTheme.border),
       ),

@@ -1,3 +1,4 @@
+import 'package:vanet_mobile/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vanet_mobile/core/theme/colors.dart';
@@ -53,7 +54,7 @@ class RecentActivitySection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppTheme.surface,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(color: AppColors.border),
             boxShadow: const [

@@ -61,7 +61,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.background,
       body: SafeArea(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -106,7 +106,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
                               fontWeight: FontWeight.w800,
                               fontSize: 25,
                               height: 1.15,
-                              color: AppTheme.textPrimary,
+                              color: AppTheme.primary,
                             ),
                           ),
 
@@ -160,9 +160,9 @@ class _VanetUniqueLogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double size = 200;
-    const Color paleOrange = Color(0xFFFFF0EB);
-    const Color orangeAccent = Color(0xFFE45D3F);
-    const Color navyDark = Color(0xFF1E293B);
+    const Color outerDark = Color(0xFF161F30);
+    const Color orangeAccent = AppTheme.primary;
+    const Color nodeGlow = Color(0xFF64748B);
 
     return SizedBox(
       width: size,
@@ -170,17 +170,17 @@ class _VanetUniqueLogoWidget extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Outer pale orange circle badge with soft subtle shadow
+          // Outer dark circle badge with soft subtle shadow
           Container(
             width: size,
             height: size,
             decoration: BoxDecoration(
-              color: paleOrange,
+              color: outerDark,
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: orangeAccent.withValues(alpha: 0.1),
-                  blurRadius: 24,
+                  color: orangeAccent.withValues(alpha: 0.2),
+                  blurRadius: 28,
                   offset: const Offset(0, 8),
                 ),
               ],
@@ -191,8 +191,8 @@ class _VanetUniqueLogoWidget extends StatelessWidget {
           CustomPaint(
             size: const Size(size, size),
             painter: _RadiatingNetworkNodesPainter(
-              nodeColor: navyDark,
-              lineColor: navyDark.withValues(alpha: 0.8),
+              nodeColor: nodeGlow,
+              lineColor: nodeGlow.withValues(alpha: 0.6),
             ),
           ),
 
@@ -201,18 +201,18 @@ class _VanetUniqueLogoWidget extends StatelessWidget {
             width: 104,
             height: 114,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppTheme.surface,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50),
               ),
-              border: Border.all(color: orangeAccent, width: 3.0),
+              border: Border.all(color: orangeAccent, width: 2.5),
               boxShadow: [
                 BoxShadow(
-                  color: orangeAccent.withValues(alpha: 0.18),
-                  blurRadius: 16,
+                  color: orangeAccent.withValues(alpha: 0.3),
+                  blurRadius: 18,
                   offset: const Offset(0, 6),
                 ),
               ],

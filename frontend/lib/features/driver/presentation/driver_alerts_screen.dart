@@ -41,7 +41,7 @@ class DriverAlertsScreen extends ConsumerWidget {
                   margin: const EdgeInsets.only(bottom: 12),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppTheme.surface,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color: isCritical

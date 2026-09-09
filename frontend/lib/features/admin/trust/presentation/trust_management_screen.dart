@@ -144,9 +144,9 @@ class TrustManagementScreen extends ConsumerWidget {
     final untrustedCount = state.vehicles.isEmpty ? 1 : state.vehicles.where((v) => v.trustStatus.toLowerCase() == 'untrusted').length;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: AppTheme.secondarySurface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,

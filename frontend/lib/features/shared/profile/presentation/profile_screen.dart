@@ -18,9 +18,9 @@ class ProfileScreen extends ConsumerWidget {
     final String name = email.startsWith('admin') ? "Admin Operator" : ref.watch(profileNameProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: AppTheme.secondarySurface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
@@ -196,7 +196,7 @@ class ProfileScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: AppTheme.border, width: 1.0),
         boxShadow: const [

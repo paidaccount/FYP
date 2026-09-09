@@ -63,7 +63,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final isLastPage = _currentPage == _pages.length - 1;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.background,
       body: SafeArea(
         child: Column(
           children: [
@@ -341,7 +341,7 @@ class _ConnectedVehiclesRoadIllustration extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.surface,
         shape: BoxShape.circle,
         border: Border.all(color: borderColor, width: 1.8),
         boxShadow: hasShadow
@@ -375,8 +375,6 @@ class _RoadAndNetworkPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-
     // 1. Draw Clean Road Lines
     final roadPaint = Paint()
       ..color = const Color(0xFFCBD5E1)
@@ -551,9 +549,9 @@ class _AiDetectionIllustration extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: const Color(0xFFF3F4F6)),
+                border: Border.all(color: AppTheme.secondarySurface),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.07),
@@ -628,7 +626,7 @@ class _AiDetectionIllustration extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.surface,
         shape: BoxShape.circle,
         border: Border.all(color: const Color(0xFFCBD5E1), width: 1.5),
       ),
@@ -708,7 +706,7 @@ class _SecureTrustIllustration extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 shape: BoxShape.circle,
                 border: Border.all(color: orangeAccent, width: 2.5),
                 boxShadow: [
@@ -734,7 +732,7 @@ class _SecureTrustIllustration extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: orangeAccent.withValues(alpha: 0.3)),
                 boxShadow: [
@@ -805,9 +803,9 @@ class _SecureTrustIllustration extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: const Color(0xFFF3F4F6)),
+                border: Border.all(color: AppTheme.secondarySurface),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.06),
@@ -851,7 +849,7 @@ class _SecureTrustIllustration extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: const Color(0xFFE5E7EB)),
                 boxShadow: [

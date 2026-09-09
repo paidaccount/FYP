@@ -23,7 +23,7 @@ class NearbyVehiclesScreen extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppTheme.surface,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(color: AppTheme.border, width: 1.2),
               boxShadow: [
@@ -85,7 +85,7 @@ class NearbyVehiclesScreen extends ConsumerWidget {
               margin: const EdgeInsets.only(bottom: 10),
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: isUntrusted

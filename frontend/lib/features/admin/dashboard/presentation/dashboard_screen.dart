@@ -13,6 +13,8 @@ import 'package:vanet_mobile/features/admin/dashboard/presentation/widgets/recen
 import 'package:vanet_mobile/features/admin/dashboard/presentation/widgets/dashboard_skeleton.dart';
 import 'package:vanet_mobile/widgets/app_drawer.dart';
 
+import 'package:vanet_mobile/core/utils/responsive.dart';
+
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
@@ -39,7 +41,7 @@ class DashboardScreen extends ConsumerWidget {
       backgroundColor: AppColors.background,
       drawer: const AppDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.surface,
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: Builder(
@@ -103,70 +105,72 @@ class DashboardScreen extends ConsumerWidget {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // 🔹 Error State Banner (if data fails to load)
-              if (state.errorMessage != null) ...[
-                _buildErrorCard(context, notifier, state.errorMessage!),
-                const SizedBox(height: 16),
-              ],
-
-              // 1. NETWORK RISK HERO CARD
-              NetworkRiskCard(
-                riskScore: state.riskScore,
-                riskLevel: state.riskLevel,
-                suspiciousCount: suspiciousCount,
-                activeAttacksCount: activeThreatsCount,
-                emergencyCount: emergencyCount,
-                anomalyCount: 4,
-              ),
-
-              const SizedBox(height: 20),
-
-              // 2. KEY STATISTICS (2×2 Grid)
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 1.4,
-                children: [
-                  // Active Vehicles
-                  MetricCard(
-                    title: 'Active Vehicles',
-                    value: '$totalVehicles',
-                    icon: Icons.directions_car_rounded,
-                    accentColor: AppColors.primary,
-                    onTap: () => context.go('/vehicles'),
-                  ),
-                  // Suspicious Vehicles
-                  MetricCard(
-                    title: 'Suspicious Vehicles',
-                    value: '$suspiciousCount',
-                    icon: Icons.warning_amber_rounded,
-                    accentColor: AppColors.warning,
-                    onTap: () => context.go('/vehicles'),
-                  ),
-                  // Emergency Vehicles
-                  MetricCard(
-                    title: 'Emergency Vehicles',
-                    value: emergencyCount < 10 ? '0$emergencyCount' : '$emergencyCount',
-                    icon: Icons.local_hospital_rounded,
-                    accentColor: const Color(0xFF2563EB),
-                    onTap: () => context.go('/emergency'),
-                  ),
-                  // Active Threats
-                  MetricCard(
-                    title: 'Active Threats',
-                    value: activeThreatsCount < 10 ? '0$activeThreatsCount' : '$activeThreatsCount',
-                    icon: Icons.gpp_bad_rounded,
-                    accentColor: AppColors.error,
-                    onTap: () => context.go('/alerts'),
-                  ),
+          child: ResponsiveContainer(
+            padding: EdgeInsets.zero,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 🔹 Error State Banner (if data fails to load)
+                if (state.errorMessage != null) ...[
+                  _buildErrorCard(context, notifier, state.errorMessage!),
+                  const SizedBox(height: 16),
                 ],
-              ),
+
+                // 1. NETWORK RISK HERO CARD
+                NetworkRiskCard(
+                  riskScore: state.riskScore,
+                  riskLevel: state.riskLevel,
+                  suspiciousCount: suspiciousCount,
+                  activeAttacksCount: activeThreatsCount,
+                  emergencyCount: emergencyCount,
+                  anomalyCount: 4,
+                ),
+
+                const SizedBox(height: 20),
+
+                // 2. KEY STATISTICS (Adaptive Grid)
+                GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: Responsive.getGridColumnCount(context, mobile: 2, tablet: 4, desktop: 4),
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: Responsive.isMobile(context) ? 1.4 : 1.3,
+                  children: [
+                    // Active Vehicles
+                    MetricCard(
+                      title: 'Active Vehicles',
+                      value: '$totalVehicles',
+                      icon: Icons.directions_car_rounded,
+                      accentColor: AppColors.primary,
+                      onTap: () => context.go('/vehicles'),
+                    ),
+                    // Suspicious Vehicles
+                    MetricCard(
+                      title: 'Suspicious Vehicles',
+                      value: '$suspiciousCount',
+                      icon: Icons.warning_amber_rounded,
+                      accentColor: AppColors.warning,
+                      onTap: () => context.go('/vehicles'),
+                    ),
+                    // Emergency Vehicles
+                    MetricCard(
+                      title: 'Emergency Vehicles',
+                      value: emergencyCount < 10 ? '0$emergencyCount' : '$emergencyCount',
+                      icon: Icons.local_hospital_rounded,
+                      accentColor: const Color(0xFF2563EB),
+                      onTap: () => context.go('/emergency'),
+                    ),
+                    // Active Threats
+                    MetricCard(
+                      title: 'Active Threats',
+                      value: activeThreatsCount < 10 ? '0$activeThreatsCount' : '$activeThreatsCount',
+                      icon: Icons.gpp_bad_rounded,
+                      accentColor: AppColors.error,
+                      onTap: () => context.go('/alerts'),
+                    ),
+                  ],
+                ),
 
               const SizedBox(height: 22),
 
@@ -188,6 +192,7 @@ class DashboardScreen extends ConsumerWidget {
           ),
         ),
       ),
+    ),
     );
   }
 

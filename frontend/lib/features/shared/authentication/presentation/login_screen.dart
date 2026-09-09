@@ -70,7 +70,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final authState = ref.watch(authProvider);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -287,7 +287,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               height: 20,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                color: Colors.white,
+                                color: AppTheme.surface,
                               ),
                             )
                           : Text(
@@ -422,7 +422,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF9FAFB),
+        color: AppTheme.secondarySurface,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: AppTheme.border),
       ),
