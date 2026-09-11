@@ -2,9 +2,9 @@ import os
 from pathlib import Path
 
 # Paths
-TRUST_DIR = Path(__file__).resolve().parent
-ML_DIR = TRUST_DIR.parent
-BACKEND_DIR = ML_DIR.parent.parent
+SERVICES_DIR = Path(__file__).resolve().parent
+APP_DIR = SERVICES_DIR.parent
+BACKEND_DIR = APP_DIR.parent
 REPORTS_DIR = BACKEND_DIR / "reports"
 TRUST_HISTORY_DIR = BACKEND_DIR / "trust_history"
 TRUST_PLOTS_DIR = REPORTS_DIR / "trust"

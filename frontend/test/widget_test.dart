@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
-import 'package:vanet_mobile/features/notifications/data/notification_service.dart';
-import 'package:vanet_mobile/features/notifications/presentation/notification_provider.dart';
-import 'package:vanet_mobile/features/notifications/presentation/notification_screen.dart';
+import 'package:vanet_mobile/features/shared/notifications/data/notification_service.dart';
+import 'package:vanet_mobile/features/shared/notifications/presentation/notification_provider.dart';
+import 'package:vanet_mobile/features/shared/notifications/presentation/notification_screen.dart';
 
 class FakeNotificationService extends NotificationService {
   FakeNotificationService() : super(dio: Dio());
@@ -83,9 +83,9 @@ void main() {
       );
 
       // Check if title is displayed
-      expect(find.text('VANET Security Alerts'), findsOneWidget);
+      expect(find.text('BROADCAST NOTIFICATIONS'), findsOneWidget);
       // Check if empty state message is present
-      expect(find.text('No alerts registered.'), findsOneWidget);
+      expect(find.text('No broadcast notifications found.'), findsOneWidget);
     });
 
     testWidgets('Filter chip selection updates display filters', (WidgetTester tester) async {
@@ -101,11 +101,11 @@ void main() {
       );
 
       // Verify that ChoiceChips are present
-      expect(find.text('All Alerts'), findsOneWidget);
-      expect(find.text('Security Warnings'), findsOneWidget);
+      expect(find.text('All Broadcasts'), findsOneWidget);
+      expect(find.text('Security Alerts'), findsOneWidget);
 
-      // Tap on the Security Warnings filter chip
-      await tester.tap(find.text('Security Warnings'));
+      // Tap on the Security Alerts filter chip
+      await tester.tap(find.text('Security Alerts'));
       await tester.pumpAndSettle();
     });
   });

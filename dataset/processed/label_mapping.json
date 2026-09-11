@@ -1,0 +1,10 @@
+{
+    "0": "Normal",
+    "1": "ConstPos",
+    "2": "ConstPosOffset",
+    "4": "Random",
+    "8": "RandomOffset",
+    "16": "EventualStop",
+    "32": "Sybil",
+    "64": "Dos"
+}
