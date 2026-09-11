@@ -57,43 +57,62 @@ final _driverRadarKey = GlobalKey<NavigatorState>();
 final _driverAlertsKey = GlobalKey<NavigatorState>();
 final _driverMapKey = GlobalKey<NavigatorState>();
 
+class RouterNotifier extends ChangeNotifier {
+  final Ref _ref;
+
+  RouterNotifier(this._ref) {
+    _ref.listen<AuthState>(
+      authProvider,
+      (_, __) => notifyListeners(),
+    );
+  }
+
+  String? redirect(BuildContext context, GoRouterState state) {
+    final authState = _ref.read(authProvider);
+    final loc = state.matchedLocation;
+
+    // 1. Initial Cold Start: Allow /splash strictly while not completed
+    if (!authState.hasCompletedSplash) {
+      return loc == '/splash' ? null : '/splash';
+    }
+
+    // 2. Once splash completed: NEVER go back to /splash
+    if (loc == '/splash') {
+      if (!authState.isAuthenticated) {
+        return authState.hasSeenOnboarding ? '/login' : '/onboarding';
+      }
+      return authState.isAdmin ? '/dashboard' : '/driver/dashboard';
+    }
+
+    // 3. If unauthenticated
+    if (!authState.isAuthenticated) {
+      if (loc == '/login' || loc == '/onboarding') {
+        return null;
+      }
+      return authState.hasSeenOnboarding ? '/login' : '/onboarding';
+    }
+
+    // 4. If authenticated and accessing auth/public routes
+    if (loc == '/login' || loc == '/onboarding') {
+      return authState.isAdmin ? '/dashboard' : '/driver/dashboard';
+    }
+
+    return null;
+  }
+}
+
+final routerNotifierProvider = Provider<RouterNotifier>((ref) {
+  return RouterNotifier(ref);
+});
+
 final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authProvider);
+  final notifier = ref.watch(routerNotifierProvider);
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
+    refreshListenable: notifier,
     initialLocation: '/splash',
-    redirect: (context, state) {
-      final loc = state.matchedLocation;
-
-      // 1. Initial Cold Start: Allow /splash strictly while not completed
-      if (!authState.hasCompletedSplash) {
-        return loc == '/splash' ? null : '/splash';
-      }
-
-      // 2. Once splash completed: NEVER go back to /splash
-      if (loc == '/splash') {
-        if (!authState.isAuthenticated) {
-          return authState.hasSeenOnboarding ? '/login' : '/onboarding';
-        }
-        return authState.isAdmin ? '/dashboard' : '/driver/dashboard';
-      }
-
-      // 3. If unauthenticated
-      if (!authState.isAuthenticated) {
-        if (loc == '/login' || loc == '/onboarding') {
-          return null;
-        }
-        return authState.hasSeenOnboarding ? '/login' : '/onboarding';
-      }
-
-      // 4. If authenticated and accessing auth/public routes
-      if (loc == '/login' || loc == '/onboarding') {
-        return authState.isAdmin ? '/dashboard' : '/driver/dashboard';
-      }
-
-      return null;
-    },
+    redirect: notifier.redirect,
     routes: [
       GoRoute(
         path: '/splash',

@@ -3,8 +3,9 @@ from pathlib import Path
 
 # Paths
 ROUTING_DIR = Path(__file__).resolve().parent
-ML_DIR = ROUTING_DIR.parent
-BACKEND_DIR = ML_DIR.parent.parent
+SERVICES_DIR = ROUTING_DIR.parent
+APP_DIR = SERVICES_DIR.parent
+BACKEND_DIR = APP_DIR.parent
 REPORTS_DIR = BACKEND_DIR / "reports"
 ROUTING_PLOTS_DIR = REPORTS_DIR / "routes"
 

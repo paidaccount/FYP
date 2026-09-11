@@ -3,8 +3,9 @@ from pathlib import Path
 
 # Paths
 EMERGENCY_DIR = Path(__file__).resolve().parent
-ML_DIR = EMERGENCY_DIR.parent
-BACKEND_DIR = ML_DIR.parent.parent
+SERVICES_DIR = EMERGENCY_DIR.parent
+APP_DIR = SERVICES_DIR.parent
+BACKEND_DIR = APP_DIR.parent
 REPORTS_DIR = BACKEND_DIR / "reports"
 EMERGENCY_PLOTS_DIR = REPORTS_DIR / "emergency"
 

@@ -1,5 +1,11 @@
 from typing import List, Dict, Any
-from firebase_admin import messaging
+import importlib
+
+try:
+    messaging = importlib.import_module("firebase_admin.messaging")
+except ImportError:
+    messaging = None
+
 from app.core.logging import logger
 from app.services.firebase_config import initialize_firebase, firebase_initialized
 
