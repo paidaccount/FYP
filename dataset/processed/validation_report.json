@@ -1,0 +1,9 @@
+{
+    "total_records": 1141,
+    "feature_count": 29,
+    "missing_values": 0,
+    "infinite_values": 0,
+    "class_distribution": {
+        "0": 1141
+    }
+}

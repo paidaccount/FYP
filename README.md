@@ -39,66 +39,65 @@ This project implements a hybrid security framework combining:
 ## 3. Directory Layout (Clean Architecture)
 
 ```text
-vanet-security-fyp/
+fyp/
 │
 ├── README.md                           # Main Project Master Documentation (This File)
 │
-├── frontend/
-│   └── flutter_app/                    # Restructured Flutter Dashboard Application
-│       ├── android/
-│       ├── ios/
-│       ├── lib/
-│       │   ├── core/                   # Navigation, theme configurations, API networks
-│       │   ├── models/                 # Vehicle, Trust, Route data structures
-│       │   ├── services/               # Reusable API integrations
-│       │   └── features/               # Dashboard, Auth, Alerts, and XAI screens
-│       └── test/
-│           └── widget_test.dart        # Riverpod UI test suite
+├── frontend/                           # Flutter 3.41.7 Cross-Platform App & Dashboard
+│   ├── lib/
+│   │   ├── core/                       # Navigation, theme configurations, API network client
+│   │   ├── models/                     # Vehicle, Trust, Route, Alert data structures
+│   │   ├── services/                   # Backend API integrations & state managers
+│   │   └── features/                   # Dashboard, Auth, Driver, Alerts, and XAI screens
+│   ├── test/
+│   │   └── widget_test.dart            # Flutter Riverpod UI & state test suite
+│   ├── pubspec.yaml                    # Flutter dependencies & assets
+│   ├── web/                            # Web build targets
+│   └── windows/                        # Windows desktop build targets
 │
-├── backend/
-│   ├── app/                            # REST API Core Layer
+├── backend/                            # FastAPI Backend, Services, Models & Scripts
+│   ├── app/                            # REST API Core Layer & Business Services
 │   │   ├── database/                   # Model declarations & mock database store
-│   │   │   ├── models/                 # SQLAlchemy entity schemas
-│   │   │   ├── repositories/           # Repository CRUD patterns
-│   │   │   └── store.py                # Central in-memory database store
-│   │   ├── dependencies/               # FastAPI route dependencies (auth, database)
+│   │   ├── dependencies/               # FastAPI route dependencies & auth
 │   │   ├── interactors/                # Endpoint-specific business workflows
 │   │   ├── routes/                     # HTTP and WebSocket controllers
-│   │   │   ├── api.py                  # API router aggregator
-│   │   │   └── websocket.py            # Live telemetry broadcaster
-│   │   └── services/                   # Third-party integrations (Firebase, ML/XAI runners)
-│   │
-│   ├── ml/                             # Machine Learning & AI Module
-│   │   ├── dataset/                    # VeReMi dataset pipelines
-│   │   ├── trust/                      # Trust rules engine & trust calculators
-│   │   ├── routing/                    # Dijkstra and A* search solvers
-│   │   └── xai/                        # SHAP/LIME explainer packages
-│   │
-│   ├── tests/
+│   │   └── services/                   # Business domain services (ML, XAI, Trust, Routing, Dataset)
+│   ├── models/                         # Trained ML model weights
+│   │   └── best_model.joblib           # Pre-trained classifier binary
+│   ├── scripts/                        # Standalone runnable ML & simulation scripts
+│   │   ├── preprocess.py               # VeReMi dataset ingestion & feature extraction
+│   │   ├── simulate_ml.py              # ML model evaluation & benchmark runner
+│   │   ├── explain.py                  # Local & global SHAP/LIME explanation generator
+│   │   ├── simulate_trust.py           # 5-Epoch vehicle trust evolution simulation
+│   │   ├── simulate_emergency.py       # Priority validation & siren control tester
+│   │   ├── simulate_routing.py         # A* emergency detour search runner
+│   │   └── simulate_notifications.py   # Real-time FCM push notification simulation
+│   ├── tests/                          # Asynchronous API & Unit Test Suite
 │   │   ├── conftest.py                 # Async testing client fixtures
-│   │   └── test_backend.py             # FastAPI API integration tests
-│   │
-│   ├── pyproject.toml                  # Poetry package dependencies
-│   ├── simulate_ml.py                  # ML comparative curves compiler
-│   └── simulate_notifications.py       # Notification push tester
+│   │   ├── test_api.py                 # Comprehensive REST endpoints test runner
+│   │   ├── test_backend.py             # Domain logic integration tests
+│   │   └── test_health.py              # Health check & database connection tests
+│   ├── reports/                        # Generated Evaluation Graphs & Assets
+│   │   ├── emergency/                  # Priority distribution & fake alert charts
+│   │   ├── ml/                         # ROC-AUC & PR comparative evaluation curves
+│   │   ├── routes/                     # A* detours execution visualization diagrams
+│   │   ├── trust/                      # Dynamic trust score convergence plots
+│   │   └── xai/                        # Global/local SHAP & LIME explanation figures
+│   ├── trust_history/                  # Vehicle Trust Simulation Output Logs
+│   │   ├── VEH_CASE_1_NORMAL.json      # Mock evaluation logs for Normal vehicle scenarios
+│   │   ├── VEH_CASE_2_SINGLE_ATTACK.json# Mock evaluation logs for Single Anomaly telemetry
+│   │   ├── VEH_CASE_3_REPEATED_ATTACK.json# Mock evaluation logs for Repeated threat telemetry
+│   │   └── VEH_CASE_4_RECOVERY.json    # Mock evaluation logs for vehicle Trust Recovery epochs
+│   ├── pyproject.toml                  # Python package specifications
+│   └── alembic.ini                     # Migration engine configuration file
 │
-├── database/                           # Alembic Database Migration Specifications
+├── database/                           # Database Migrations & Schemas
 │   ├── alembic/                        # Versioned DB migration schema scripts
 │   └── alembic.ini                     # Migration engine configuration file
 │
-├── trust_history/                      # Vehicle Trust Simulation Output Logs
-│   ├── VEH_CASE_1_NORMAL.json          # Mock evaluation logs for Normal vehicle scenarios
-│   ├── VEH_CASE_2_SINGLE_ATTACK.json   # Mock evaluation logs for Single Anomaly telemetry
-│   ├── VEH_CASE_3_REPEATED_ATTACK.json # Mock evaluation logs for Repeated threat telemetry
-│   └── VEH_CASE_4_RECOVERY.json        # Mock evaluation logs for vehicle Trust Recovery epochs
-│
-├── reports/                            # Generated Evaluation Graphs & Assets
-│   ├── emergency/                      # Priority distribution & fake alert graphics
-│   ├── routes/                         # A* detours execution visualization diagrams
-│   └── trust/                          # Dynamic trust score convergence plots
-│
-└── brain/                              # Agent System Cache (IDE Workspace Temp Files)
-    └── <conversation-id>/             # Conversation logs, task lists, and metadata caches
+└── dataset/                            # Unified Dataset Directory
+    ├── raw/                            # Raw JSON telemetry trace files
+    └── processed/                      # Cleaned train/val/test CSVs, scaler.pkl, & feature metadata
 ```
 
 ---
@@ -216,41 +215,96 @@ Using the processed VeReMi dataset, our anomaly classifiers achieve the followin
 
 ---
 
-## 7. Setup & Execution Guide
+## 7. Setup & Offline Execution Guide
 
 ### Prerequisite Environment
-Make sure you have Python 3.11+ and Flutter SDK installed.
+*   **Python**: 3.11+ (Tested on Python 3.13)
+*   **Flutter SDK**: 3.22+ (Tested on Flutter 3.41.7)
+*   **Google Chrome** or **Windows Visual Studio Build Tools** (for desktop/web target)
 
-### Backend Setup & Execution
-1.  Navigate into the backend folder:
+---
+
+### Backend Server Execution
+1.  Navigate into the `backend/` directory:
     ```bash
     cd backend
     ```
-2.  Activate the pre-configured virtual environment on Windows:
-    ```powershell
-    .venv\Scripts\activate
-    ```
-    *(If using Linux/macOS, run: `source .venv/bin/activate`)*
-3.  Run FastAPI Server:
+2.  Start the FastAPI Server with live auto-reload:
     ```bash
-    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
     ```
-4.  Execute API Tests:
-    ```bash
-    pytest tests/test_backend.py
-    ```
+3.  Open interactive API documentation in your browser:
+    *   Swagger UI: `http://127.0.0.1:8000/docs`
+    *   ReDoc: `http://127.0.0.1:8000/redoc`
 
-### Flutter Client Setup
-1.  Navigate into the flutter_app directory:
+---
+
+### Running ML, XAI & Simulation Pipelines (Offline / Local)
+All simulations and machine learning pipelines execute 100% locally on your computer without requiring Google Colab:
+
+| Task | Command (Run inside `backend/`) | Outputs Generated |
+| :--- | :--- | :--- |
+| **1. Ingest & Preprocess Dataset** | `python scripts/preprocess.py` | `dataset/processed/train.csv`, `validation.csv`, `test.csv`, `scaler.pkl` |
+| **2. Benchmark ML Classifiers** | `python scripts/simulate_ml.py` | `backend/reports/ml/roc_curves.png`, `pr_curves.png`, `feature_importance.png` |
+| **3. Generate SHAP & LIME XAI** | `python scripts/explain.py` | `backend/models/best_model.joblib`, `backend/reports/xai/`, JSON explanation logs |
+| **4. Simulate Dynamic Trust** | `python scripts/simulate_trust.py` | `backend/trust_history/`, `backend/reports/trust/fleet_rankings.png` |
+| **5. Test Emergency Priority** | `python scripts/simulate_emergency.py` | `backend/reports/emergency/priority_distribution.png` |
+| **6. Run A* Detour Routing** | `python scripts/simulate_routing.py` | `backend/reports/routes/accident_detour_comparison.png` |
+| **7. Real-Time FCM Alerts** | `python scripts/simulate_notifications.py` | Push notification payloads & simulation logs |
+
+---
+
+### Executing Automated Test Suites
+
+#### 1. Backend Test Suite (FastAPI, ML, Trust, Routing)
+```bash
+cd backend
+python -m pytest
+```
+*Executes all 20 test cases across `test_api.py`, `test_backend.py`, and `test_health.py`.*
+
+#### 2. Frontend Test Suite (Flutter Widget & Riverpod State)
+```bash
+cd frontend
+flutter test
+```
+*Executes all 4 Flutter unit and widget tests.*
+
+---
+
+### Flutter Client Application Setup
+1.  Navigate into the `frontend/` directory:
     ```bash
-    cd frontend/flutter_app
+    cd frontend
     ```
-2.  Get packages:
+2.  Install dependencies:
     ```bash
     flutter pub get
     ```
-3.  Run the application locally on Windows desktop:
-    ```bash
-    flutter run -d windows
-    ```
-    *(Or run on Web browser: `flutter run -d chrome`)*
+3.  Run the application on your preferred platform:
+    *   **Windows Desktop**:
+        ```bash
+        flutter run -d windows
+        ```
+    *   **Web Browser (Chrome)**:
+        ```bash
+        flutter run -d chrome
+        ```
+
+---
+
+## 8. REST API Endpoints Overview
+
+| Category | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **Misbehavior ML** | `POST` | `/api/v1/ml/predict` | Analyzes kinematics and flags attacks (False Speed, Pos, Sybil, DoS) |
+| **Explainable AI** | `POST` | `/api/v1/xai/explain` | Generates local SHAP waterfall & LIME surrogate explanations |
+| **Trust Management** | `POST` | `/api/v1/trust/update` | Calculates dynamic trust score and updates vehicle penalty standing |
+| **Trust Management** | `GET` | `/api/v1/trust/{vehicle_id}` | Retrieves trust score history, attack logs, and classification status |
+| **Emergency Priority** | `POST` | `/api/v1/emergency/register` | Registers emergency fleet vehicle (Ambulance, Police, Fire, Rescue) |
+| **Emergency Priority** | `POST` | `/api/v1/emergency/verify` | Authenticates emergency claim and assigns dynamic priority level |
+| **Route Detour** | `POST` | `/api/v1/routing/accidents/` | Registers traffic hazard / accident zone and notifies nearby vehicles |
+| **Route Detour** | `POST` | `/api/v1/routing/recommend` | Computes optimal detour route avoiding accidents via A* heuristics |
+| **Fleet Reports** | `GET` | `/api/v1/reports/security` | Aggregated security statistics and emergency event logs |
+| **Fleet Analytics** | `GET` | `/api/v1/analytics/dashboard` | High-level fleet metrics (total, malicious, trusted, emergency) |
+| **Real-time Feed** | `WS` | `/ws/telemetry` | WebSocket stream for live vehicle telemetry and instant alert broadcast |
