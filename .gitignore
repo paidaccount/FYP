@@ -43,7 +43,7 @@ frontend/.dart_tool/
 *.tar.gz
 *.zip
 
-# IDE & OS
+# IDE / OS
 .idea/
 .vscode/
 *.swp
